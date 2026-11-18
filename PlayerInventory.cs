@@ -1,0 +1,61 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class PlayerInventory : MonoBehaviour
+{
+    [Header("General")]
+    public List<itemType> inventoryList;
+    public int selectedItem;
+
+    [Space(20)]
+    [Header("Keys")]
+    [SerializeField] KeyCode throwItemKey;
+    [SerializeField] KeyCode pickItemKey;
+
+    [Space(20)]
+    [Header("Item gameobjects")]
+    [SerializeField] GameObject gun1;
+    [SerializeField] GameObject pipeWrench;
+    [SerializeField] GameObject pills;
+
+    private Dictionary<itemType, GameObject> itemSetActive = new Dictionary<itemType, GameObject>() { };
+
+    private void Start()
+    {
+        itemSetActive.Add(itemType.Gun1, gun1);
+        itemSetActive.Add(itemType.pills, pills);
+        itemSetActive.Add(itemType.pipeWrench, pipeWrench);
+
+        NewItemSelected();
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryList.Count > 1)
+        {
+            selectedItem = 1;
+            NewItemSelected();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryList.Count > 2)
+        {
+            selectedItem = 2;
+            NewItemSelected();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryList.Count > 3)
+        {
+            selectedItem = 3;
+            NewItemSelected();
+        }
+    }
+
+    private void NewItemSelected()
+    {
+        gun1.SetActive(false);
+        pipeWrench.SetActive(false);
+        pills.SetActive(false);
+
+        GameObject selectedItemGameObject = itemSetActive[inventoryList[selectedItem]];
+        selectedItemGameObject.SetActive(true);
+    }
+}
