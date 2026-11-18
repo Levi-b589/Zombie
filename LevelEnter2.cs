@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//another level enter script so you can go to the 4th scene
 
 public class LevelEnter2 : MonoBehaviour
 {

@@ -34,7 +34,7 @@ public class NPCInteraction : MonoBehaviour
     private bool playerNearby = false;
     private bool waitingForChoice = false;
     private int dialogueIndex = 0;
-
+    //Dialogue for the user to go through and talk to the NPC
     private Line[] dialogue =
     {
         new Line("NPC: Hey! Wait a minute."),
@@ -46,14 +46,14 @@ public class NPCInteraction : MonoBehaviour
                          "NPC: Then be careful in there." }),
         new Line("NPC: Good luck! You may pass.")
     };
-
+    //if promptUI is not there it doesnt show up
     void Start()
     {
         dialoguePanel.SetActive(false);
         HideChoices();
         if (promptUI != null) promptUI.SetActive(false);
     }
-
+    //Checks if E was pressed before you talk to the NPC
     void Update()
     {
         if (Keyboard.current == null)
@@ -65,7 +65,7 @@ public class NPCInteraction : MonoBehaviour
         // Nothing but a choice click can progress while choices are showing
         if (waitingForChoice)
             return;
-
+        //If you pressed E near the NPC to talk then it runs the dialogue
         if (playerNearby && !hasTalked)
         {
             if (!dialoguePanel.activeSelf)
@@ -154,7 +154,7 @@ public class NPCInteraction : MonoBehaviour
         isTalking = false;
         Debug.Log("Conversation finished!");
     }
-
+    //Makes you talk to the NPC before going to the next scene
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -164,7 +164,7 @@ public class NPCInteraction : MonoBehaviour
                 promptUI.SetActive(true);
         }
     }
-
+    //If you dont talk to the NPC then you cant go to the next level.
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))

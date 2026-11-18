@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using JetBrains.Annotations;
 
+//This script allows you to move around jump crouch walk and sprint
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5.0f;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //Gets the player compenent 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+    //checks if you are "sneeking" running or walking
     void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
@@ -62,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isRunning = aValue.isPressed;
     }
+    //allows you to jump
     public void OnJump(InputValue aValue)
     {
         if(aValue.isPressed && isGrounded)

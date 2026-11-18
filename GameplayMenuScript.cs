@@ -55,6 +55,7 @@ public class GamePlayMenuScript : MonoBehaviour
 
     void Update()
     {
+        //When esc is pressed it brings up the menu UI
         if (Keyboard.current != null &&
             Keyboard.current.escapeKey.wasPressedThisFrame)
         {
@@ -72,7 +73,7 @@ public class GamePlayMenuScript : MonoBehaviour
             }
         }
     }
-
+    //Pauses game when you click esc
     public void PauseGame()
     {
         pauseCanvas.SetActive(true);
@@ -83,7 +84,7 @@ public class GamePlayMenuScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-
+    //resumes game when you click resume or when you esc
     public void ResumeGame()
     {
         pausePanel.SetActive(false);
@@ -94,7 +95,7 @@ public class GamePlayMenuScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
+    //opens options panel and makes your cursor visible
     public void OpenOptions()
     {
         if (pauseCanvas != null)
@@ -109,7 +110,7 @@ public class GamePlayMenuScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-
+    //closes options
     public void CloseOptions()
     {
         if (optionsPanel != null)
@@ -121,12 +122,12 @@ public class GamePlayMenuScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-
+    //quits the game when you arent in unity
     public void QuitGame()
     {
         Application.Quit();
     }
-
+    //changes the cameras FOV, the PlayerPrefs saves the FOV
     public void ChangeFOV(float value)
     {
         if (playerCamera != null)
@@ -134,13 +135,13 @@ public class GamePlayMenuScript : MonoBehaviour
 
         PlayerPrefs.SetFloat("FOV", value);
     }
-
+    //Changes Sens 
     public void ChangeSensitivity(float value)
     {
         mouseSensitivity = value;
         PlayerPrefs.SetFloat("Sensitivity", value);
     }
-
+    //Changes volume
     public void ChangeVolume(float value)
     {
         AudioListener.volume = value;

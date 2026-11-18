@@ -6,7 +6,7 @@ public class StartMenu : MonoBehaviour
 {
     public Button startButton;
     public Button quitButton;
-
+    //In the start screen it brings up start, quit and settings these are the buttons for that
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
