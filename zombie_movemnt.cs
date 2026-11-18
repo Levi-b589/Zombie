@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//dont use this, it was the first attempt at zombie movement and it wasn't good
 public class zombie_movemnt : MonoBehaviour
 {
 
