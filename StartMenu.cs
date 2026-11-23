@@ -14,8 +14,14 @@ public class StartMenu : MonoBehaviour
 
         Debug.Log("StartMenu is running");
 
-        if (startButton != null) startButton.onClick.AddListener(StartGame);
-        if (quitButton != null) quitButton.onClick.AddListener(QuitGame);
+        if (startButton != null)
+        {
+            startButton.onClick.AddListener(StartGame);
+        }
+        if (quitButton != null)
+        {
+            quitButton.onClick.AddListener(QuitGame);
+        }
     }
 
     public void StartGame()

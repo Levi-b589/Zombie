@@ -6,6 +6,7 @@ using TMPro;
 public class NPCInteraction : MonoBehaviour
 {
     [System.Serializable]
+    //Allows you to talk to the NPC
     public class Line
     {
         public string text;
@@ -51,20 +52,29 @@ public class NPCInteraction : MonoBehaviour
     {
         dialoguePanel.SetActive(false);
         HideChoices();
-        if (promptUI != null) promptUI.SetActive(false);
+        if (promptUI != null)
+        {
+            promptUI.SetActive(false);
+        }
     }
     //Checks if E was pressed before you talk to the NPC
     void Update()
     {
         if (Keyboard.current == null)
+        {
             return;
+        }
 
         if (!Keyboard.current.eKey.wasPressedThisFrame)
+        {
             return;
+        }
 
         // Nothing but a choice click can progress while choices are showing
         if (waitingForChoice)
+        {
             return;
+        }
         //If you pressed E near the NPC to talk then it runs the dialogue
         if (playerNearby && !hasTalked)
         {
@@ -77,9 +87,13 @@ public class NPCInteraction : MonoBehaviour
                 dialogueIndex++;
 
                 if (dialogueIndex < dialogue.Length)
+                {
                     ShowDialogue();
+                }
                 else
+                {
                     EndDialogue();
+                }
             }
         }
     }
@@ -99,9 +113,13 @@ public class NPCInteraction : MonoBehaviour
         dialogueText.text = line.text;
 
         if (line.choices != null && line.choices.Length > 0)
+        {
             ShowChoices(line);
+        }
         else
+        {
             HideChoices();
+        }
     }
 
     void ShowChoices(Line line)
@@ -116,7 +134,10 @@ public class NPCInteraction : MonoBehaviour
         {
             bool used = i < line.choices.Length;
             choiceButtons[i].gameObject.SetActive(used);
-            if (!used) continue;
+            if (!used)
+            {
+                continue;
+            }
 
             choiceLabels[i].text = line.choices[i];
 
@@ -144,7 +165,9 @@ public class NPCInteraction : MonoBehaviour
     void HideChoices()
     {
         foreach (var b in choiceButtons)
+        {
             b.gameObject.SetActive(false);
+        }
     }
 
     void EndDialogue()
@@ -161,7 +184,9 @@ public class NPCInteraction : MonoBehaviour
         {
             playerNearby = true;
             if (promptUI != null && !hasTalked && !isTalking)
+            {
                 promptUI.SetActive(true);
+            }
         }
     }
     //If you dont talk to the NPC then you cant go to the next level.
@@ -170,7 +195,10 @@ public class NPCInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNearby = false;
-            if (promptUI != null) promptUI.SetActive(false);
+            if (promptUI != null)
+            {
+                promptUI.SetActive(false);
+            }
         }
     }
 }

@@ -10,4 +10,5 @@ public class inventory_hotbar : ScriptableObject
     public Sprite item_Sprite;
 }
 
-public enum itemType { Gun1,pipeWrench,pills};
+//the choices you have
+public enum itemType { Gun1, Knife, pipeWrench, pills };

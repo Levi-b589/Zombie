@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isSneeking;
     private bool isRunning;
     private bool isGrounded;
+    private bool canJump = true;
+    private bool wasAirborne;
+
+
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     private Rigidbody rb;
@@ -34,7 +38,20 @@ public class PlayerMovement : MonoBehaviour
     //checks if you are "sneeking" running or walking
     void FixedUpdate()
     {
+
+
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
+        if (!isGrounded)
+        {
+            wasAirborne = true;
+        }
+        else if (wasAirborne)
+        {
+            canJump = true;
+            wasAirborne = false;
+        }
+
+
         if(isSneeking == true)
         {
             currentSpeed = sneek;
@@ -68,10 +85,12 @@ public class PlayerMovement : MonoBehaviour
     //allows you to jump
     public void OnJump(InputValue aValue)
     {
-        if(aValue.isPressed && isGrounded)
+        if(aValue.isPressed && canJump && isGrounded)
         {
+            canJump = false;
+            wasAirborne = true;
             rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
-            isGrounded = false;
+
         }
     }
 }

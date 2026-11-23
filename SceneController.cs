@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    //All this code does is it makes you talk to the NPC before entering
     public void ChangeScene(string sceneName)
     {
         if(NPCInteraction.hasTalked)

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class GamePlayMenuScript : MonoBehaviour
 {
+    private PlayerHealth playerHealth;
+
     // Panels
     public GameObject pauseCanvas;
     public GameObject optionsPanel;
@@ -23,10 +25,14 @@ public class GamePlayMenuScript : MonoBehaviour
     void Start()
     {
         if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
+        }
 
         if (optionsPanel != null)
+        {
             optionsPanel.SetActive(false);
+        }
 
         Time.timeScale = 1f;
 
@@ -40,13 +46,19 @@ public class GamePlayMenuScript : MonoBehaviour
         float savedVolume = PlayerPrefs.GetFloat("Volume", 1f);
 
         if (fovSlider != null)
+        {
             fovSlider.value = savedFOV;
+        }
 
         if (sensitivitySlider != null)
+        {
             sensitivitySlider.value = savedSensitivity;
+        }
 
         if (volumeSlider != null)
+        {
             volumeSlider.value = savedVolume;
+        }
 
         ChangeFOV(savedFOV);
         ChangeSensitivity(savedSensitivity);
@@ -55,9 +67,13 @@ public class GamePlayMenuScript : MonoBehaviour
 
     void Update()
     {
+        if (playerHealth != null && playerHealth.IsDead)
+        {
+            return;
+        }
+
         //When esc is pressed it brings up the menu UI
-        if (Keyboard.current != null &&
-            Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (optionsPanel != null && optionsPanel.activeSelf)
             {
@@ -99,13 +115,19 @@ public class GamePlayMenuScript : MonoBehaviour
     public void OpenOptions()
     {
         if (pauseCanvas != null)
+        {
             pauseCanvas.SetActive(true);
+        }
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
+        }
 
         if (optionsPanel != null)
+        {
             optionsPanel.SetActive(true);
+        }
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -114,10 +136,14 @@ public class GamePlayMenuScript : MonoBehaviour
     public void CloseOptions()
     {
         if (optionsPanel != null)
+        {
             optionsPanel.SetActive(false);
+        }
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(true);
+        }
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -131,7 +157,9 @@ public class GamePlayMenuScript : MonoBehaviour
     public void ChangeFOV(float value)
     {
         if (playerCamera != null)
+        {
             playerCamera.fieldOfView = value;
+        }
 
         PlayerPrefs.SetFloat("FOV", value);
     }
@@ -147,4 +175,10 @@ public class GamePlayMenuScript : MonoBehaviour
         AudioListener.volume = value;
         PlayerPrefs.SetFloat("Volume", value);
     }
+    //for player health when the game starts
+    public void Awake()
+    {
+        playerHealth = FindFirstObjectByType<PlayerHealth>();
+    }
+
 }
