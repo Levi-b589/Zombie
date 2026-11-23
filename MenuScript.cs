@@ -22,24 +22,47 @@ public class MenuScript : MonoBehaviour
     public float mouseSensitivity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //Menu script for start scene
     void Start()
     {
-        if (pausePanel!=null) pausePanel.SetActive(false);
-        if (optionsPanel != null) pausePanel.SetActive(false);
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(false);
+        }
+
+        if (startMenu != null)
+        {
+            startMenu.SetActive(true);
+        }
 
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = false;
 
-        //Load saved settings
+        bool isStartMenu = startMenu != null;
+        Cursor.lockState = isStartMenu ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isStartMenu;
+
         float savedFOV = PlayerPrefs.GetFloat("FOV", 90f);
         float savedSens = PlayerPrefs.GetFloat("Sensitivity", 0.1f);
         float savedVolume = PlayerPrefs.GetFloat("Volume", 1f);
 
-
-        fovSlider.value = savedFOV;
-        sensitivitySlider.value = savedSens;
-        volumeSlider.value = savedVolume;
+        if (fovSlider != null)
+        {
+            fovSlider.value = savedFOV;
+        }
+        if (sensitivitySlider != null)
+        {
+            sensitivitySlider.value = savedSens;
+        }
+        if (volumeSlider != null)
+        { 
+            volumeSlider.value = savedVolume; 
+        }
 
         ChangeFOV(savedFOV);
         ChangeSensitivity(savedSens);
@@ -47,11 +70,12 @@ public class MenuScript : MonoBehaviour
     }
 
     // Update is called once per frame
+    //If you click esc it allows you to open the options panel
     void Update()
     {
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            if(optionsPanel.activeSelf)
+            if (optionsPanel.activeSelf)
             {
                 BackToStartMenu();
             }
@@ -125,7 +149,6 @@ public class MenuScript : MonoBehaviour
         pauseCanvas.SetActive(true);
         pausePanel.SetActive(false);
         optionsPanel.SetActive(true);
-
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -133,6 +156,7 @@ public class MenuScript : MonoBehaviour
     public void BackToStartMenu()
     {
         optionsPanel.SetActive(false);
+        pauseCanvas.SetActive(false);
         startMenu.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

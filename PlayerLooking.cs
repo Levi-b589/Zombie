@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+//OG player looking script
 public class PlayerLooking : MonoBehaviour
 {
     [SerializeField] private Transform cameraHolder;
@@ -24,7 +26,10 @@ public class PlayerLooking : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale == 0f) return;
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
 
         float sens = menu.mouseSensitivity;
 

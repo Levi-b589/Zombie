@@ -25,7 +25,7 @@ public class LevelEnter : MonoBehaviour
             }
             else
             {
-                Debug.Log("Youneed to talk to the NPC first!");
+                Debug.Log("You need to talk to the NPC first!");
             }
         }
     }
